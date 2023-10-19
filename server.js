@@ -2,8 +2,17 @@ const express = require('express');
 const cluster = require('cluster');
 const os = require('os');
 const net = require('net');
-const { connectAndSaveSignalHmu, connectAndSavePointHmu, connectAndSaveTrackHmu, sendvalueTocloud } = require('./implementation');
 const JSONStream = require('JSONStream');
+const {
+    SaveSignalHmu,
+    SavePointHmu,
+    SaveTrackHmu,
+    fetchModuleDevices,
+    widgetDevices,
+    searchDevices,
+    fetchCurrentData,
+    fetchHistoryData
+} = require('./implementation');
 
 const numCPUs = os.cpus().length;
 
@@ -18,13 +27,17 @@ if (cluster.isMaster) {
     });
 } else {
     const app = express();
-    const PORT_HTTP = process.env.PORT || 3000;
-    const PORT_TCP = 9090;
+    const PORT_HTTP = process.env.PORT || 8000;
+    const PORT_TCP = 8000;
     const HOST_TCP = '192.168.1.26';
 
-    // No need for the router and HTTP endpoints
+    app.use(express.static('./public', { index: 'signal_hmu.html' }));
 
-    // Create a TCP server to handle incoming TCP requests
+    app.listen(PORT_HTTP, () => {
+        console.log(`HTTP Worker ${process.pid} listening on port ${PORT_HTTP}`);
+    });
+
+    //Create a TCP server to handle incoming TCP requests
     const tcpServer = net.createServer((socket) => {
         socket.write('acknowledged\r\n');
 
@@ -56,16 +69,18 @@ if (cluster.isMaster) {
         console.log(`TCP Worker ${process.pid} listening on ${HOST_TCP}:${PORT_TCP}`);
     });
 
-    async function processDataAndSave(data) {
-        if (isValidDataStructure(data)) {
-            const currentDateTime = new Date().toLocaleString();
-            console.log(`Last data received on: ${currentDateTime}`);
-            console.log('Board:', data.communication_board.deviceId);
+    // Process and Save the received data
+    async function processDataAndSave(tcp_val) {
+        if (isValidDataStructure(tcp_val)) {
 
-            if (data.communication_board.SignalHmu) {
+            const currentDateTime = new Date().toLocaleString();
+            console.log(`Last data received from on: ${currentDateTime}`);
+            console.log('Board:', tcp_val.communication_board.deviceId);
+
+            if (tcp_val.communication_board.SignalHmu) {
                 try {
-                    const saveSignalHmu = await connectAndSaveSignalHmu(data.communication_board.SignalHmu);
-                    //console.log(saveSignalHmu);
+                    const saveSignalHmu = await SaveSignalHmu(tcp_val.communication_board.SignalHmu); // save signal hmu data into db
+                    console.log(saveSignalHmu);
                 } catch (error) {
                     console.error('Error inserting SignalHmu data:', error);
                 }
@@ -73,10 +88,10 @@ if (cluster.isMaster) {
                 console.error('SignalHmu data is missing or incorrect');
             }
 
-            if (data.communication_board.PointHmu) {
+            if (tcp_val.communication_board.PointHmu) {
                 try {
-                    const savePointHmu = await connectAndSavePointHmu(data.communication_board.PointHmu);
-                    //console.log(savePointHmu);
+                    const savePointHmu = await SavePointHmu(tcp_val.communication_board.PointHmu); // save point hmu data into db
+                    console.log(savePointHmu);
                 } catch (error) {
                     console.error('Error inserting PointHmu data:', error);
                 }
@@ -84,26 +99,101 @@ if (cluster.isMaster) {
                 console.error('PointHmu data is missing or incorrect');
             }
 
-            if (data.communication_board.TrackHmu) {
+            if (tcp_val.communication_board.TrackHmu) {
                 try {
-                    const saveTrackHmu = await connectAndSaveTrackHmu(data.communication_board.TrackHmu);
-                    //console.log(saveTrackHmu);
+                    const saveTrackHmu = await SaveTrackHmu(tcp_val.communication_board.TrackHmu); // save track hmu data into db
+                    console.log(saveTrackHmu);
                 } catch (error) {
                     console.error('Error inserting TrackHmu data:', error);
                 }
             } else {
                 console.error('TrackHmu data is missing or incorrect');
             }
-        } else {
-            console.error('Invalid or incomplete JSON data structure:', data);
         }
     }
 
-    function isValidDataStructure(data) {
+    function isValidDataStructure(tcp_val) {
         return (
-            data &&
-            data.communication_board &&
-            data.communication_board.deviceId
+            tcp_val &&
+            tcp_val.communication_board &&
+            tcp_val.communication_board.deviceId
         );
     }
+
+    // List of devices of the module, it will handle search request and widget request too
+    app.get('/FetchDevices', async(request, response) => {
+
+        var module = request.query.module;
+        var search = request.query.search;
+        var widget_status = request.query.widget_status;
+
+        if (typeof search !== 'undefined') {
+
+            try {
+                const searchdata = await searchDevices(search, module);
+                response.status(200).json({
+                    data: searchdata
+                });
+            } catch (error) {
+                const errorMessage = 'An error occurred during fetch single data';
+                response.status(500).json({ error: errorMessage });
+            }
+
+        } else {
+            if (typeof widget_status !== 'undefined') {
+                try {
+                    const widgetdata = await widgetDevices(module, Number(widget_status));
+                    response.status(200).json({
+                        data: widgetdata
+                    });
+                } catch (error) {
+                    const errorMessage = 'An error occurred during fetch all data';
+                    response.status(500).json({ error: errorMessage });
+                }
+            } else {
+
+                try {
+                    const fetchAlldata = await fetchModuleDevices(module);
+                    response.status(200).json({
+                        data: fetchAlldata
+                    });
+                } catch (error) {
+                    const errorMessage = 'An error occurred during fetch all data';
+                    response.status(500).json({ error: errorMessage });
+                }
+            }
+        }
+
+    });
+
+    // Live data of the module
+    app.get('/fetchLiveData', async(request, response) => {
+        var device_name = request.query.device_name;
+        var module = request.query.module;
+        try {
+            const fetchLiveData = await fetchCurrentData(device_name, module);
+            console.log(fetchLiveData);
+            response.status(200).json({
+                data: fetchLiveData
+            });
+        } catch (error) {
+            const errorMessage = 'An error occurred during fetch live data';
+            response.status(500).json({ error: errorMessage });
+        }
+    });
+
+    // History data of the module
+    app.get('/fetchHistoryData', async(request, response) => {
+        var device_name = request.query.device_name;
+        var module = request.query.module;
+        try {
+            const fetchHistorydata = await fetchHistoryData(device_name, module);
+            response.status(200).json({
+                data: fetchHistorydata
+            });
+        } catch (error) {
+            const errorMessage = 'An error occurred during fetch history data';
+            response.status(500).json({ error: errorMessage });
+        }
+    });
 }

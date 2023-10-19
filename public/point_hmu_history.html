@@ -1,0 +1,292 @@
+<html lang="en" style="height: auto;">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sensedge - Railways</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <!-- IonIcons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- window-tab icon -->
+    <link rel="icon" href="dist/img/logo-mini.png" type="image/x-icon">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
+    <body class="sidebar-mini layout-navbar-fixed layout-fixed" id="body-dark" style="height: auto;">
+        <div class="wrapper">
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light" id="headbar-dark">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a href="signal_hmu.html" class="nav-link">Home</a>
+                    </li>
+                </ul>
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" id="darkmode-btn">
+                        <div class="nav-link">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar elevation-4 sidebar-light-info" id="sidebar-dark">
+                <!-- Brand Logo -->
+                <a href="signal_hmu.html" class="brand-link">
+                    <img src="dist/img/logo-mini.png" alt="Sensedge Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <img src="dist/img/logo.png" alt="Sensedge Logo" class="brand-text font-weight-light">
+                </a>
+                <!-- Sidebar User-->
+                <div class="sidebar" style="overflow-y: auto;">
+                    <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img src="dist/img/user-avatar.png" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a class="d-block">Daemon Salvatore</a>
+                        </div>
+                    </div> -->
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item menu-open">
+                                <a class="nav-link active" id="gear-head">
+                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <p>
+                                        Gear's
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" id="gears">
+                                    <li class="nav-item">
+                                        <a href="signal_hmu.html" class="nav-link sub-gears">
+                                            <i class="nav-icon text-info">1.</i>
+                                            <p>Signal HMU</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="point_hmu.html" class="nav-link active sub-gears">
+                                            <i class="nav-icon text-info">2.</i>
+                                            <p>Point HMU</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="tck_hmu.html" class="nav-link sub-gears">
+                                            <i class="nav-icon text-info">3.</i>
+                                            <p>TCK HMU</p>
+                                        </a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                    <a class="nav-link sub-gears" id="BHMS">
+                                        <i class="nav-icon text-info" id="BHMS">4.</i>
+                                        <p id="BHMS">BHMS</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link sub-gears" id="Com-Unit">
+                                        <i class="nav-icon text-info" id="Com-Unit">5.</i>
+                                        <p id="Com-Unit">Com-Unit</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link sub-gears" id="Analog HMU">
+                                        <i class="nav-icon text-info" id="Analog HMU">6.</i>
+                                        <p id="Analog HMU">Analog HMU</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link sub-gears" id="Digital HMU">
+                                        <i class="nav-icon text-info" id="Digital HMU">7.</i>
+                                        <p id="Digital HMU">Digital HMU</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link sub-gears" id="Master">
+                                        <i class="nav-icon text-info" id="Master">8.</i>
+                                        <p id="Master">Master</p>
+                                    </a>
+                                </li> -->
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+
+
+
+            <div class="content-wrapper" id="liveData" style="min-height: 517px;">
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6 module-name"></div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <a href="point_hmu.html"><button type="button" class="btn btn-info">Back</button></a>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Live content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Live Data's</h3>
+                                    </div>
+                                    <div>
+                                        <div class="card-body table-responsive">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Device ID</th>
+                                                        <th>DCVoltage Channels V1</th>
+                                                        <th>DCVoltage Channels V2</th>
+                                                        <th>DCVoltage Channels V3</th>
+                                                        <th>DCCurrent Channels I1</th>
+                                                        <th>DCCurrent Channels I2</th>
+                                                        <th>DCCurrent Channels I3</th>
+                                                        <th>Vibration</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="live-data"></tbody>
+                                                <!-- <tbody>
+                                                <tr>
+                                                    <td>POINT456</td>
+                                                    <td>2023-05-04</td>
+                                                    <td>16:34:26</td>
+                                                    <td>230</td>
+                                                    <td>2</td>
+                                                    <td>11 mm</td>
+                                                </tr>
+                                            </tbody> -->
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- History content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">History</h3>
+                                        <div class="card-tools">
+                                            <div class="input-group input-group-sm" style="width: 200px;" id="graph-btn">
+                                                <a href="point_hmu_graph.html" class="float-right" style="margin-left: 100px;margin-top: 3px;" id="DEV_001">Graph View</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="card-body table-responsive">
+                                            <table id="example2" class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 10px">Sl.no</th>
+                                                        <th>Device ID</th>
+                                                        <th>DCVoltage Channels V1</th>
+                                                        <th>DCVoltage Channels V2</th>
+                                                        <th>DCVoltage Channels V3</th>
+                                                        <th>DCCurrent Channels I1</th>
+                                                        <th>DCCurrent Channels I2</th>
+                                                        <th>DCCurrent Channels I3</th>
+                                                        <th>Vibration</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="history-data"></tbody>
+                                                <!-- <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>POINT456</td>
+                                                    <td>2023-05-04</td>
+                                                    <td>16:34:26</td>
+                                                    <td>230</td>
+                                                    <td>2</td>
+                                                    <td>11 mm</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>POINT456</td>
+                                                    <td>2023-05-04</td>
+                                                    <td>16:34:26</td>
+                                                    <td>220</td>
+                                                    <td>10</td>
+                                                    <td>11 mm</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>POINT456</td>
+                                                    <td>2023-05-04</td>
+                                                    <td>16:34:26</td>
+                                                    <td>225</td>
+                                                    <td>10</td>
+                                                    <td>11 mm</td>
+                                                </tr>
+                                            </tbody> -->
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <strong>Copyright © 2023 <a href="https://www.sensedgetss.com/">sensedge</a>.</strong> All rights reserved.
+            </footer>
+            <div id="sidebar-overlay"></div>
+        </div>
+
+        <!-- REQUIRED SCRIPTS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="dist/js/adminlte.js"></script>
+        <script src="dist/js/demo.js"></script>
+        <script src="dist//js/getURL.js"></script>
+        <script src="dist//js/script.js"></script>
+        <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+        <script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+        <script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+        <script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+        <script src="plugins/DataChart/Chart.min.js"></script>
+
+
+    </body>
+
+</html>
