@@ -27,11 +27,14 @@ if (cluster.isMaster) {
     });
 } else {
     const app = express();
-    const PORT_HTTP = process.env.PORT || 8000;
-    const PORT_TCP = 8000;
-    const HOST_TCP = '192.168.1.26';
+    const PORT_HTTP = process.env.PORT || 9090;
+    const PORT_TCP = 9090;
+    const HOST_TCP = '192.168.1.20';
 
-    app.use(express.static('./public', { index: 'signal_hmu.html' }));
+    //app.use(express.static('./public', { index: 'signal_hmu.html' }));
+
+    // app.use(express.static('./public', { index: 'index.html' }));
+
 
     app.listen(PORT_HTTP, () => {
         console.log(`HTTP Worker ${process.pid} listening on port ${PORT_HTTP}`);
@@ -126,7 +129,7 @@ if (cluster.isMaster) {
         var module = request.query.module;
         var search = request.query.search;
         var widget_status = request.query.widget_status;
-
+        
         if (typeof search !== 'undefined') {
 
             try {
